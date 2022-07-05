@@ -1,0 +1,25 @@
+# Version of the compose file format 
+version: "4"
+# Container services
+services:
+  app:
+  # Path to Dockerfile 
+    build: "https://hub.docker.com/repository/docker/eng114lee/node"
+    
+    environment:
+      - DB_HOST=mongodb://db:27017/posts
+    
+    depends_on:
+      - database
+    ports:
+      - "3000:3000"  
+    
+     
+  database:
+  #  # image to fetch from docker hub
+    image: mongo
+    
+    restart: always
+    # Mapping of container port to host
+    ports:
+      - "27017:27017"
